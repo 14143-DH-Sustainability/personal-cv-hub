@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JSON Link List</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2em;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 0.5em;
+    }
+    a {
+      text-decoration: none;
+      color: #007bff;
+    }
+    .no-link {
+      color: gray;
+      text-decoration: line-through;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <h1>Personal CV Website Directory</h1>
+  <p>
+    <a href="https://docs.google.com/spreadsheets/d/1VBVZlviaFWJ0L2JX4A2HyWmc30UwDqUTb3RlgLkORWA/edit?usp=sharing">
+        <strong>Add your website to the list</strong>
+    </a>
+  </p>
+  <ul id="link-list"></ul>
+
+  <script>
+    const jsonUrl = "https://api.sheetbest.com/sheets/0cd08c73-9ea2-49d1-8f83-e8652144cce5";
+
+    fetch(jsonUrl)
+      .then(response => {
+        if (!response.ok) throw new Error("Network response was not ok");
+        return response.json();
+      })
+      .then(data => {
+        const list = document.getElementById("link-list");
+
+        data.forEach(item => {
+          const li = document.createElement("li");
+
+          if (item.Website) {
+            const link = document.createElement("a");
+            link.href = item.Website;
+            link.textContent = item.Name;
+            link.target = "_blank";
+            li.appendChild(link);
+          } else {
+            const span = document.createElement("span");
+            span.textContent = item.Name;
+            span.className = "no-link";
+            li.appendChild(span);
+          }
+
+          list.appendChild(li);
+        });
+      })
+      .catch(error => {
+        console.error("Error fetching JSON:", error);
+      });
+  </script>
+</body>
+</html>
