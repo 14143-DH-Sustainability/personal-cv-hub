@@ -6,24 +6,60 @@
   <title>Personal CV Website Directory</title>
   <style>
     body {
-      font-family: sans-serif;
-      padding: 2em;
+      font-family: Georgia, 'Times New Roman', serif;
+      background-color: #f8f5f2;
+      color: #333;
+      max-width: 700px;
+      margin: auto;
+      padding: 3em 1.5em;
+      line-height: 1.6;
     }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 1em;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 0.3em;
+    }
+
+    p {
+      margin-bottom: 2em;
+    }
+
+    a {
+      text-decoration: none;
+      color: #0066cc;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #004499;
+    }
+
     ul {
       list-style: none;
       padding: 0;
     }
+
     li {
-      margin-bottom: 0.5em;
+      background: #fff;
+      padding: 1em;
+      margin-bottom: 1em;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+      transition: transform 0.2s ease;
     }
-    a {
-      text-decoration: none;
-      color: #007bff;
+
+    li:hover {
+      transform: translateY(-2px);
     }
+
     .no-link {
-      color: gray;
+      color: #aaa;
       text-decoration: line-through;
       cursor: not-allowed;
+      font-style: italic;
     }
   </style>
 </head>
@@ -32,9 +68,10 @@
 
   <p>
     <a href="https://docs.google.com/spreadsheets/d/1VBVZlviaFWJ0L2JX4A2HyWmc30UwDqUTb3RlgLkORWA/edit?usp=sharing" target="_blank">
-        <strong>Add your website to the list</strong>
+        ➕ Add your website to the list
     </a>
   </p>
+
   <ul id="link-list"></ul>
 
   <script>
