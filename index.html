@@ -86,6 +86,8 @@
         const list = document.getElementById("link-list");
 
         data.forEach(item => {
+          if (item.HW !== 'cv') return; // Skip all items from other homeworks
+          
           const li = document.createElement("li");
 
           if (item.Website) {
