@@ -1,114 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Personal CV Website Directory</title>
-  <style>
-    body {
-      font-family: Georgia, 'Times New Roman', serif;
-      background-color: #f8f5f2;
-      color: #333;
-      max-width: 700px;
-      margin: auto;
-      padding: 3em 1.5em;
-      line-height: 1.6;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Personal CV Website Directory</title>
+    <style>
+      body {
+        font-family: Georgia, 'Times New Roman', serif;
+        background-color: #f8f5f2;
+        color: #333;
+        max-width: 700px;
+        margin: auto;
+        padding: 3em 1.5em;
+        line-height: 1.6;
+      }
 
-    h1 {
-      font-size: 2em;
-      margin-bottom: 1em;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 0.3em;
-    }
+      h1 {
+        font-size: 2em;
+        margin-bottom: 1em;
+        border-bottom: 2px solid #ccc;
+        padding-bottom: 0.3em;
+      }
 
-    p {
-      margin-bottom: 2em;
-    }
+      p {
+        margin-bottom: 2em;
+      }
 
-    a {
-      text-decoration: none;
-      color: #0066cc;
-      font-weight: bold;
-      transition: color 0.3s ease;
-    }
+      a {
+        text-decoration: none;
+        color: #0066cc;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
 
-    a:hover {
-      color: #004499;
-    }
+      a:hover {
+        color: #004499;
+      }
 
-    ul {
-      list-style: none;
-      padding: 0;
-    }
+      ul {
+        list-style: none;
+        padding: 0;
+      }
 
-    li {
-      background: #fff;
-      padding: 1em;
-      margin-bottom: 1em;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.06);
-      transition: transform 0.2s ease;
-    }
+      li {
+        background: #fff;
+        padding: 1em;
+        margin-bottom: 1em;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+        transition: transform 0.2s ease;
+      }
 
-    li:hover {
-      transform: translateY(-2px);
-    }
+      li:hover {
+        transform: translateY(-2px);
+      }
 
-    .no-link {
-      color: #aaa;
-      text-decoration: line-through;
-      cursor: not-allowed;
-      font-style: italic;
-    }
-  </style>
-</head>
-<body>
-  <h1>Personal CV Website Directory</h1>
+      .no-link {
+        color: #aaa;
+        text-decoration: line-through;
+        cursor: not-allowed;
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Personal CV Website Directory</h1>
 
-  <p>
-    <a href="https://docs.google.com/spreadsheets/d/1VBVZlviaFWJ0L2JX4A2HyWmc30UwDqUTb3RlgLkORWA/edit?usp=sharing" target="_blank">
-        ➕ Add your website to the list
-    </a>
-  </p>
+    <p>
+      <a href="https://docs.google.com/spreadsheets/d/1VBVZlviaFWJ0L2JX4A2HyWmc30UwDqUTb3RlgLkORWA/edit?usp=sharing" target="_blank">
+          ➕ Add your website to the list
+      </a>
+    </p>
 
-  <ul id="link-list"></ul>
+    <ul id="link-list">
 
-  <script>
-    const jsonUrl = "https://api.sheetbest.com/sheets/0cd08c73-9ea2-49d1-8f83-e8652144cce5";
+      <!-- Links will be populated here by JavaScript -->
 
-    fetch(jsonUrl)
-      .then(response => {
-        if (!response.ok) throw new Error("Network response was not ok");
-        return response.json();
-      })
-      .then(data => {
-        const list = document.getElementById("link-list");
+    </ul>
 
-        data.forEach(item => {
-          if (item.Directory !== 'cv') return; // Skip all items from other homeworks
-          
-          const li = document.createElement("li");
+    <script>
+      const jsonUrl = "https://api.sheetbest.com/sheets/0cd08c73-9ea2-49d1-8f83-e8652144cce5";
 
-          if (item.Website) {
-            const link = document.createElement("a");
-            link.href = item.Website;
-            link.textContent = item.Name;
-            link.target = "_blank";
-            li.appendChild(link);
-          } else {
-            const span = document.createElement("span");
-            span.textContent = item.Name;
-            span.className = "no-link";
-            li.appendChild(span);
-          }
+      fetch(jsonUrl)
+        .then(response => {
+          if (!response.ok) throw new Error("Network response was not ok");
+          return response.json();
+        })
+        .then(data => {
+          const list = document.getElementById("link-list");
 
-          list.appendChild(li);
+          data.forEach(item => {
+            if (item.Directory !== 'cv') return; // Skip all items from other homeworks
+            
+            const li = document.createElement("li");
+
+            if (item.Website) {
+              const link = document.createElement("a");
+              link.href = item.Website;
+              link.textContent = item.Name;
+              link.target = "_blank";
+              li.appendChild(link);
+            } else {
+              const span = document.createElement("span");
+              span.textContent = item.Name;
+              span.className = "no-link";
+              li.appendChild(span);
+            }
+
+            list.appendChild(li);
+          });
+        })
+        .catch(error => {
+          console.error("Error fetching JSON:", error);
         });
-      })
-      .catch(error => {
-        console.error("Error fetching JSON:", error);
-      });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
